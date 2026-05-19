@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twelve Store - Toko Kuota Online</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Prevent horizontal scrolling and ensure images don't overflow */
+        html, body {
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #4b4fa2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            margin-bottom: 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .cart-info {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 20px;
+            opacity: 0.95;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+            align-items: start;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: white;
+            border: 1px solid rgba(102, 126, 234, 0.15);
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 540px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+        }
+
+        .product-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 200px;
+        }
+
+        .product-header img {
+            width: 140px;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+        }
+
+        .product-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .product-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .product-speed {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .product-body {
+            padding: 25px 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .product-details {
+            margin-bottom: 15px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+
+        .detail-item strong {
+            color: #333;
+        }
+
+        .detail-item span {
+            color: #666;
+        }
+
+        .price-section {
+            margin: 20px 0 0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .original-price {
+            font-size: 12px;
+            color: #999;
+            text-decoration: line-through;
+            margin-bottom: 5px;
+        }
+
+        .price {
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .discount-badge {
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .add-to-cart {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .product-body form {
+            margin-top: auto;
+            width: 100%;
+        }
+
+        .add-to-cart:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Promo Banner */
+        .promo-banner {
+            background: linear-gradient(90deg, #ff9a56 0%, #ff6b6b 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+        }
+
+        .promo-banner h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .promo-banner p {
+            font-size: 16px;
+            opacity: 0.95;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 10px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 20px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .header-right {
+                gap: 15px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div>
+                <div class="logo">📱 TWELVE STORE</div>
+                <div class="tagline">Kuota Internet Unlimited</div>
+            </div>
+            <div class="header-right">
+                <div class="cart-info">Admin Ganteng</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Belanja Kouta Internet Paling Murah!!!</h1>
+            <p>Dapatkan kuota internet unlimited dengan harga paling Gacor</p>
+        </section>
+
+        <!-- Promo Banner -->
+        <section class="promo-banner">
+            <h2>⚡ PROMO SPESIAL HARI INI ⚡</h2>
+            <p>Diskon hingga 25% untuk semua paket kuota! Soalnya Admin Ganteng </p>
+        </section>
+
+        <!-- Products Grid -->
+        <section class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-header">
+                    <img src="gambar/aizen1.jpg" alt="" style="max-width:100%;border-radius:10px;">
+                    <div class="product-name">Paket Rakyat Biasa</div>
+                    <div class="product-speed">Unlimited 1 Bulan</div>
+                </div>
+                <div class="product-body">
+                    <div class="product-details">
+                        <div class="detail-item">
+                            <strong>Kuota:</strong>
+                            <span>Unlimited</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>Durasi:</strong>
+                            <span>1 Bulan</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>Kecepatan:</strong>
+                            <span>Cepet Banget</span>
+                        </div>
+                    </div>
+                    <div class="price-section">
+                        <div class="discount-badge">DISKON 20%</div>
+                        <div class="original-price">Rp 20.000</div>
+                        <div class="price">Rp 15.000</div>
+                    </div>
+                    <a class="add-to-cart" href="https://wa.me/6283189187818?text=Saya%20mau%20beli%20Paket%20Rakyat%20Biasa%20-%20Rp%2015.000%20Mimin%20Ganteng" target="_blank" rel="noopener noreferrer">+ Tambah ke Keranjang</a>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-header">
+                        <img src="gambar/aizen3.jpg" alt="" style="max-width:100%;border-radius:10px;">
+                    <div class="product-name">Paket Rakyat Menengah</div>
+                    <div class="product-speed">Unlimited 2 Bulan</div>
+                </div>
+                <div class="product-body">
+                    <div class="product-details">
+                        <div class="detail-item">
+                            <strong>Kuota:</strong>
+                            <span>Unlimited</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>Durasi:</strong>
+                            <span>2 Bulan</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>Kecepatan:</strong>
+                            <span>Cepet Banget</span>
+                        </div>
+                    </div>
+                    <div class="price-section">
+                        <div class="discount-badge">DISKON 30%</div>
+                        <div class="original-price">Rp 40.000</div>
+                        <div class="price">Rp 28.000</div>
+                    </div>
+                    <a class="add-to-cart" href="https://wa.me/6283189187818?text=Saya%20mau%20beli%20Paket%20Rakyat%20Menengah%20-%20Rp%2028.000%20Mimin%20Ganteng" target="_blank" rel="noopener noreferrer">+ Tambah ke Keranjang</a>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-header">
+                    <img src="gambar/aizen4.jpg" alt="" style="max-width:100%;border-radius:10px;">
+                    <div class="product-name">Paket Rakyat Makmur</div>
+                    <div class="product-speed">Unlimited 3 Bulan</div>
+                </div>
+                <div class="product-body">
+                    <div class="product-details">
+                        <div class="detail-item">
+                            <strong>Kuota:</strong>
+                            <span>Unlimited</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>Durasi:</strong>
+                            <span>3 Bulan</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>Kecepatan:</strong>
+                            <span>cepet banget</span>
+                        </div>
+                    </div>
+                    <div class="price-section">
+                        <div class="discount-badge">DISKON 30%</div>
+                        <div class="original-price">Rp 60.000</div>
+                        <div class="price">Rp 42.000</div>
+                    </div>
+                    <a class="add-to-cart" href="https://wa.me/6283189187818?text=Saya%20mau%20beli%20Paket%20Rakyat%20Makmur%20-%20Rp%2042.000%20Mimin%20Ganteng" target="_blank" rel="noopener noreferrer">+ Tambah ke Keranjang</a>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="product-header">
+                    <img src="gambar/aizen2.jpg" alt="" style="max-width:100%;border-radius:10px;">
+                    <div class="product-name">Paket Sultan </div>
+                    <div class="product-speed">Unlimited 1 Tahun</div>
+                </div>
+                <div class="product-body">
+                    <div class="product-details">
+                        <div class="detail-item">
+                            <strong>Kuota:</strong>
+                            <span>Unlimited</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>Durasi:</strong>
+                            <span>1 Tahun</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>Kecepatan:</strong>
+                            <span>cepet banget</span>
+                        </div>
+                    </div>
+                    <div class="price-section">
+                        <div class="discount-badge">DISKON 37,5%</div>
+                        <div class="original-price">Rp 240.000</div>
+                        <div class="price">Rp 150.000</div>
+                    </div>
+                    <a class="add-to-cart" href="https://wa.me/6283189187818?text=Saya%20mau%20beli%20Paket%20Sultan%20-%20Rp%20150.000%20Mimin%20Ganteng" target="_blank" rel="noopener noreferrer">+ Tambah ke Keranjang</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>📱 Tentang Kami</h3>
+                <ul>
+                    <li>Toko kuota internet terpercaya sejak 2026</li>
+                    <li>Melayani jutaan pelanggan</li>
+                    <li>Transaksi aman & terjamin</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>🛍️ Layanan</h3>
+                <ul>
+                    <li>Paket Data Unlimited Only</li>
+                    <li>Top Up Pulsa</li>
+                    <li>Jual Masa Aktif XL/AXIS</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>📞 Hubungi Kami</h3>
+                <ul>
+                    <li>WhatsApp: +62 831-8918-7818</li>
+                    <li>Email: abiyyugawee@gmail.com</li>
+                    <li>Jam Operasional: 24/7</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Twelve Store - Kuota Internet Terpercaya | All Rights Reserved</p>
+        </div>
+    </footer>
+</body>
+</html>
